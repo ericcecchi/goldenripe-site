@@ -1,3 +1,4 @@
+[![Code Climate](https://codeclimate.com/github/ericcecchi/react-site-boilerplate/badges/gpa.svg)](https://codeclimate.com/github/ericcecchi/react-site-boilerplate)
 
 # React Site Boilerplate
 
