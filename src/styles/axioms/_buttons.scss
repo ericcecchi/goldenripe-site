@@ -1,0 +1,259 @@
+@import 'functions';
+@import 'typography';
+@import 'colors';
+
+$button-font-size        : $font-size-fine !default;
+$button-font-size-large  : $font-size-base !default;
+$button-line-height      : 1 !default;
+$button-height           : 40px !default;
+$button-height-small     : $button-height * .75 !default; // 30px
+$button-height-large     : $button-height * 1.25 !default; // 50px
+$button-background-color : $teal !default;
+$button-text-color       : $white !default;
+$button-border-color     : transparent !default;
+$button-border-width     : 2px !default;
+$button-border-radius    : 4px !default;
+
+@function verticalMargin($button-height) {
+  $total-vertical-space: ceil($button-height / $line-height-base-px) * $line-height-base-px;
+  @return ($total-vertical-space - $button-height) / 2;
+}
+
+@function verticalPadding($button-height, $button-font-size) {
+  $text-height: $button-font-size * $button-line-height;
+  @return (($button-height - $text-height) / 2) - $button-border-width;
+}
+
+@mixin _button-vertical-measurements($button-height, $button-font-size) {
+  // Proxima needs a little nudge to look more vertically centered
+  padding-top: pxToRem(verticalPadding($button-height, $button-font-size) + 1px);
+  padding-bottom: pxToRem(verticalPadding($button-height, $button-font-size) - 1px);
+  margin-top: pxToRem(verticalMargin($button-height));
+  margin-bottom: pxToRem(verticalMargin($button-height));
+}
+
+%button {
+  @include font-weight-semibold;
+  position: relative;
+  display: inline-block;
+  margin-right: 0;
+  margin-left: 0;
+  line-height: 1;
+  text-align: center;
+  text-shadow: none;
+  vertical-align: middle;
+  border-width: pxToRem($button-border-width);
+  border-style: solid;
+  border-radius: pxToRem($button-border-radius);
+  outline: 0;
+  transition: background-color 150ms, border-color 150ms, color 75ms ease-out;
+  &:link,
+  &:hover,
+  &:active,
+  &:visited {
+    text-decoration: none;
+    cursor: pointer;
+  }
+  &:active {
+    transform: translateY(pxToRem(1px));
+  }
+}
+
+%button-icon-text {
+  &::before,
+  &::after {
+    display: inline-block;
+    transform: translateY(-.1em);
+  }
+  &::before {
+    margin-right: .5em;
+  }
+  &::after {
+    margin-left: .5em;
+  }
+}
+
+/**
+  @name button
+  @description Creates a basic button
+  @mixin
+
+  @param $button-height - The total desired height of the button, measured in pixels. The default value is 40px; a new default value for $button-height can be set in the SCSS file that imports _buttons.scss
+  @param $button-font-size - The font size for the text in the button, measured in pixels. The default value is $font-size-tiny; a new default value for $font-size-tiny can be set in the SCSS file that imports _buttons.scss.
+  @param $button-text-color - The color for the text in the button. The default value is $white; a new default value for $button-text-color can be set in the SCSS file that imports _buttons.scss.
+  @param $button-background-color - The background color for the button. The default value is $green; a new default value for $button-background-color can be set in the SCSS file that imports _buttons.scss.
+
+  @example
+    .button._christmas {
+    @include button($button-font-size-large, $button-height-large, red, green);
+    }
+*/
+@mixin button(
+  $button-height: $button-height,
+  $button-font-size: $button-font-size,
+  $button-text-color: $button-text-color,
+  $button-background-color: $button-background-color
+) {
+  @extend %button;
+  @include button-size($button-height, $button-font-size);
+  @include button-color($button-text-color, $button-background-color, $button-border-color);
+}
+
+/**
+  @name button-size
+  @description Sizes a button
+  @mixin
+
+  @param $button-height - The total desired height of the button, measured in pixels. The default value is 40px; a new default value for $button-height can be set in the SCSS file that imports _buttons.scss
+  @param $button-font-size - The font size for the text in the button, measured in pixels. The default value is $font-size-tiny; a new default value for $font-size-tiny can be set in the SCSS file that imports _buttons.scss.
+
+  @example
+    .button._small {
+    @include button-size($button-height-small);
+    }
+    .button._large {
+    @include button-size($button-height-large, $button-font-size-large);
+  }
+*/
+@mixin button-size($button-height: $button-height, $button-font-size: $button-font-size) {
+  @include _button-vertical-measurements($button-height, $button-font-size);
+  max-width: 100%;
+  min-width: pxToRem($button-height * 4);
+  padding-right: pxToRem($button-height / 2);
+  padding-left: pxToRem($button-height / 2);
+  font-size: pxToRem($button-font-size);
+}
+
+/**
+  @name button-color
+  @description Sets the colors for a button
+  @mixin
+
+  @param $button-text-color - The color for the text in the button. The default value is $white; a new default value for $button-text-color can be set in the SCSS file that imports _buttons.scss.
+  @param $button-background-color - The background color for the button. The default value is $green; a new default value for $button-background-color can be set in the SCSS file that imports _buttons.scss.
+  @param $button-border-color - The border color for the button. The default value is transparent.
+  @param $button-text-color-hover - The hover color for the button text. The default value is the value of the $button-text-color parameter
+  @param $button-background-color-hover - The hover color for the button background. The default value is calculated based on the value of $button-background-color.
+
+  @example
+    .button._halloween {
+    @include button-color(black, orange, red, red, darkred, black);
+  }
+*/
+@mixin button-color(
+  $button-text-color: $button-text-color,
+  $button-background-color: $button-background-color,
+  $button-border-color: transparent,
+  $button-text-color-hover: $button-text-color,
+  $button-background-color-hover: hoverColor($button-background-color),
+  $button-border-color-hover: $button-border-color
+) {
+  color: $button-text-color;
+  background-color: $button-background-color;
+  border-color: $button-border-color;
+
+  &:hover {
+    background-color: $button-background-color-hover;
+    @if $button-text-color-hover != $button-text-color {
+      color: $button-text-color-hover;
+    }
+  }
+  @if $button-border-color == transparent {
+    &:focus {
+      border-color: $button-background-color-hover;
+    }
+  } @else {
+    &:focus {
+      border-color: hoverColor($button-border-color);
+    }
+    &:focus:hover {
+      border-color: $button-border-color;
+    }
+  }
+}
+
+/**
+  @name button-bordered
+  @description Creates a simple bordered button with a white background
+  @mixin
+
+  @param $color - Color used for the border, text, and hover background color
+
+  @example
+    .button._chanukkah {
+    @include button-size(blue);
+  }
+*/
+@mixin button-bordered($color, $background: $white) {
+  @include button-color($color, $background, $color, $white, $color);
+}
+
+/**
+  @name button-next
+  @description Adds an arrow after the button to indicate the action moves the user forward
+  @mixin
+
+  @example
+    .button._advance {
+    @include button-next;
+  }
+*/
+@mixin button-next() {
+  &::after {
+    @extend %button-icon-text;
+    content: '\203A';
+  }
+}
+
+/**
+  @name button-previous
+  @description Adds an arrow before the button to indicate the action moves the user backwards
+  @mixin
+
+  @example
+    .button._goback {
+    @include button-previous;
+  }
+*/
+@mixin button-previous() {
+  &::after {
+    @extend %button-icon-text;
+    content: '\2039';
+  }
+}
+
+/**
+  @name button-down
+  @description Adds an arrow after the button to indicate a closed collapsable menu
+  @mixin
+
+  @example
+    .button._dropdown {
+    @include button-down;
+  }
+*/
+@mixin button-down() {
+  &::after {
+    @extend %button-icon-text;
+    content: "\2039";
+    transform: translateY(pxToRem(-1px)) rotate(-90deg);
+  }
+}
+
+/**
+  @name button-up
+  @description Adds an arrow after the button to indicate an open collapsable menu
+  @mixin
+
+  @example
+    .button._dropdown.is-open {
+    @include button-up;
+  }
+*/
+@mixin button-up() {
+  &::after {
+    @extend %button-icon-text;
+    content: "\2039";
+    transform: translateY(pxToRem(-1px)) rotate(90deg);
+  }
+}

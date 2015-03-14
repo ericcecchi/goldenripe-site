@@ -1,0 +1,82 @@
+
+.mainnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  width: 100%;
+  background: $white;
+  color: $teal;
+  box-shadow: 0 1px 2px rgba(0,0,0,.5);
+  // Using translateZ() creates a new composited layer to prevent
+  // continuous repaints when scrolling with a fixed header.
+  transform: translateZ(0);
+  * {
+    margin-top: 0;
+    vertical-align: middle;
+  }
+  // The fixed header needs to add margin-top equal to its height
+  & + * {
+    margin-top: 80px;
+  }
+  &-logo,
+  &-icon {
+    @include font-size-large;
+    @include spaced-out;
+    color: $teal;
+    transition: all 250ms;
+    svg {
+      display: inline;
+      width: 150px;
+      height: 60px;
+      margin: 20px 0; // Padding + line-height = header height (60px)
+      transition: all 250ms;
+    }
+    &:hover {
+      text-decoration: none;
+      color: hoverColor($teal);
+      opacity: .85;
+    }
+  }
+  &-nav {
+    display: inline-block;
+    &._right {
+      float: right;
+    }
+  }
+  &-links {
+    @include unstyled-list;
+    @include inline-list;
+    display: inline-block;
+    margin-left: 20px;
+  }
+  &-links > li {
+    position: relative;
+  }
+  &-links li + li {
+    margin-left: 0;
+  }
+  &-link {
+    @include spaced-out;
+    display: inline-block;
+    padding: 20px 20px 18px; // Gives them 60px height and fixes Proxima Nova vertical alignment bug
+    margin: 15px 0 15px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    color: $teal;
+    transition: all 350ms;
+    &:hover,
+    &:focus {
+      color: hoverColor($teal);
+      text-decoration: none;
+    }
+    &._active {
+      color: hoverColor($teal);
+      &:hover,
+      &:focus {
+        color: hoverColor($teal);
+      }
+    }
+  }
+}

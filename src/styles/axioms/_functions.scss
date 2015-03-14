@@ -1,0 +1,29 @@
+@function hoverColor($color) {
+  @if grayscale($color) == $color {
+    @return darken($color, 10%);
+  } @else {
+    @return saturate(darken($color, 10%), 8%);
+  }
+}
+
+
+@function pxToRem($size) {
+	$remSize: $size / $font-size-base;
+	@return #{$remSize}rem;
+}
+
+@function stripUnits($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+%cleafix {
+	&::after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+@mixin clearfix() {
+	@extend %clearfix;
+}

@@ -1,0 +1,122 @@
+@import 'colors';
+
+/**
+	@name circle-background
+	@description Make a circle background for things like icons.
+	@mixin
+
+	@param $backgorund - The color of the background. Defaults to $gray-darkest.
+	@param $color - The color of the icon. Defaults to $white.
+	@param $font-size - The size of the icon. Defaults to 1em.
+	@param $border-width - Defaults to 2px.
+	@param $border-color - Defaults to transparent.
+	@param $size - Specify an exact size for the circle. Defaults to 2.5 times the font size.
+
+	@example
+		.thing-with-icon::before {
+			@include circle-background(transparent, $white, 32px, 2px, $white);
+		}
+*/
+
+@mixin circle-background($background: $gray-darkest, $color: $white, $font-size: 1em, $border-width: 2px, $border-color: transparent, $size: $font-size * 2.5) {
+	display: block;
+	width: $size;
+	height: $size;
+	min-width: $size; // For flexbox
+	font-size: $font-size;
+	line-height: $size - 2 * $border-width !important;
+	color: $color;
+	text-align: center;
+	background: $background;
+	border: #{$border-width} solid #{$border-color};
+	border-radius: 50%;
+}
+
+/**
+	@name triangle-dingus
+	@description Triangle psuedo-elements.
+	@mixin
+
+	@param $container-side - The side of the container on which place the dingus.
+	@param $side-position -  The position of the dingus along the side.
+	@param $container-size - The length of the side on which the dingus is placed.
+	@param $size - The *height* (altitude) of the triangle.
+	@param $color - The color of the dingus.
+
+	@example
+		.tooltip {
+			@include triangle-dingus(bottom, left, 250px, 10px, $white);
+		}
+*/
+
+%triangle {
+	position: absolute;
+	width: 0;
+	height: 0;
+	font-size: 0;
+	line-height: 0;
+	content: "";
+}
+
+@mixin triangle-dingus($container-side, $side-position, $size: 10px, $color: $white) {
+
+	@if $container-side == 'top' {
+		&::before {
+			@extend %triangle;
+			top: -$size;
+			border-right: $size solid transparent;
+			border-bottom: $size solid $color;
+			border-left: $size solid transparent;
+		}
+	} @else if $container-side == 'bottom' {
+		&::before {
+			@extend %triangle;
+			bottom: -$size;
+			border-top: $size solid $color;
+			border-right: $size solid transparent;
+			border-left: $size solid transparent;
+		}
+	} @else if $container-side == 'left' {
+		&::before {
+			@extend %triangle;
+			left: -$size;
+			border-top: $size solid transparent;
+			border-right: $size solid $color;
+			border-bottom: $size solid transparent;
+		}
+	} @else if $container-side == 'right' {
+		&::before {
+			@extend %triangle;
+			right: -$size;
+			border-top: $size solid transparent;
+			border-bottom: $size solid transparent;
+			border-left: $size solid $color;
+		}
+	}
+
+	@if ($container-side == 'top' or $container-side == 'bottom') and $side-position == 'center' {
+		&::before {
+			left: calc(50% - #{$size});
+		}
+	} @else if ($container-side == 'left' or $container-side == 'right') and $side-position == 'center' {
+		&::before {
+			top: calc(50% - #{$size});
+		}
+	} @else if $side-position == 'left' {
+		&::before {
+			left: 40px;
+		}
+	} @else if $side-position == 'right' {
+		&::before {
+			right: 40px;
+		}
+	} @else if $side-position == 'top' {
+		&::before {
+			top: 40px;
+		}
+	} @else if $side-position == 'bottom' {
+		&::before {
+			bottom: 40px;
+		}
+	}
+}

@@ -1,0 +1,55 @@
+
+// Override axiom defaults here
+
+// Standard sizes
+$font-size-base: 16px;
+$font-size-large: 18px;
+$font-size-small: 14px;
+
+// Speciality sizes
+$font-size-head: 51px;
+$font-size-head-small: 42px;
+$font-size-subhead: 35px;
+$font-size-lead: 20px;
+$font-size-fine: 12px;
+
+$font-family-base: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$font-family-headline: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$line-height-base: 1.5;
+$line-height-base-px: $font-size-base * $line-height-base;
+
+$grid-width: 1200px;
+
+$section-padding-bottom-mobile: 3rem;
+
+// Axioms
+@import "axioms/base";
+@import "axioms/buttons";
+@import "axioms/colors";
+@import "axioms/dropdowns";
+@import "axioms/functions";
+@import "axioms/grid";
+@import "axioms/headings";
+@import "axioms/icons";
+@import "axioms/images";
+@import "axioms/sections";
+@import "axioms/tooltips";
+@import "axioms/typography";
+
+//Patterns
+@import "patterns/buttons";
+@import "patterns/footers";
+@import "patterns/forms";
+@import "patterns/grid";
+@import "patterns/headings";
+@import "patterns/heroes";
+@import "patterns/icons";
+@import "patterns/images";
+@import "patterns/navbars";
+@import "patterns/sections";
+@import "patterns/typography";
+
+// Layouts
+@import "layouts/home";
+@import "layouts/not-found";
+

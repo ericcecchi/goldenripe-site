@@ -1,0 +1,11 @@
+
+.globalfooter {
+  padding: 4.5rem 0;
+  background: $gray-darkest;
+  &-copyright {
+    @include font-size-fine;
+    margin-top: 3rem;
+    color: rgba($white, .4);
+    text-align: center;
+  }
+}

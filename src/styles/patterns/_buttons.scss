@@ -1,0 +1,28 @@
+
+.button {
+  @include button;
+  &._pill {
+    border-radius: 20px;
+  }
+  &._small {
+    @include button-size($button-height-small);
+  }
+  &._large {
+    @include button-size($button-height-large, $button-font-size-large);
+  }
+  &._secondary {
+    @include button-bordered($gray-light);
+  }
+  &._inverse {
+    @include button-color($white, transparent, $white, $color-text, $white, transparent);
+  }
+  &._link {
+    @include button-color($gray, transparent, transparent, $white, $gray, transparent);
+  }
+  &._link._active {
+    @include button-color($white, $gray, transparent, $white, hoverColor($gray), transparent);
+  }
+  &._next {
+    @include button-next;
+  }
+}

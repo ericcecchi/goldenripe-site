@@ -1,0 +1,86 @@
+%headline {
+	@include color-headline;
+  font-family: $font-family-headline;
+	margin-top: 0;
+}
+
+%headline-no-bottom-margin {
+	& + * {
+		margin-top: 0;
+	}
+}
+
+@mixin _headline-line-height($font-size: $font-size-base, $preferred-line-height: 0) {
+	$calculated-baseline-px: ceil($font-size / $line-height-base-px) * $line-height-base-px;
+	@if $preferred-line-height == 0 {
+		line-height: stripUnits($calculated-baseline-px / $font-size);
+	} @else {
+		$total-padding: abs($calculated-baseline-px - ceil($font-size * $preferred-line-height));
+		padding-top: pxToRem($total-padding / 2);
+		padding-bottom: pxToRem($total-padding / 2);
+		line-height: $preferred-line-height;
+	}
+}
+
+%h1 {
+	@extend %headline;
+	@include _headline-line-height($font-size-head, 1.125);
+	@include font-size-head;
+	@include font-weight-semibold;
+	margin-bottom: #{$line-height-base}rem;
+}
+%h2 {
+	@extend %headline;
+	@include _headline-line-height($font-size-subhead, 1.25);
+	@include font-size-subhead;
+  @include font-weight-semibold;
+	margin-bottom: #{$line-height-base}rem;
+}
+%h3 {
+	@extend %headline;
+	@extend %headline-no-bottom-margin;
+	@include _headline-line-height($font-size-small);
+	@include font-size-small;
+	@include spaced-out;
+	padding-top: pxToRem($line-height-base-px / 2);
+	padding-bottom: pxToRem($line-height-base-px / 2);
+}
+%h4 {
+	@extend %headline;
+	@extend %headline-no-bottom-margin;
+	@include _headline-line-height;
+	@include font-size-small;
+	@include font-weight-semibold;
+}
+%h5,
+%h6 {
+	@extend %headline;
+	@extend %headline-no-bottom-margin;
+	@include _headline-line-height;
+	@include font-size-base;
+	font-weight: inherit;
+}
+
+@mixin h1 {
+	@extend %h1;
+}
+
+@mixin h2 {
+	@extend %h2;
+}
+
+@mixin h3 {
+	@extend %h3;
+}
+
+@mixin h4 {
+	@extend %h4;
+}
+
+@mixin h5 {
+	@extend %h5;
+}
+
+@mixin h6 {
+	@extend %h6;
+}

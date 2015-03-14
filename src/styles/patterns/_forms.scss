@@ -1,0 +1,27 @@
+
+form {
+  text-align: center;
+  input{
+    width: 100%;
+    padding: 1rem;
+    background: $gray-lighter;
+    color: $color-text;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    outline: 0;
+    transition: all 250ms;
+    &::placeholder {
+      color: $gray;
+    }
+    &:focus {
+      background: $gray;
+      color: $white;
+      &::placeholder {
+        color: $white;
+      }
+    }
+  }
+  input + input {
+    margin-top: 1.5rem;
+  }
+}

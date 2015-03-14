@@ -1,0 +1,410 @@
+@import 'functions';
+@import 'typography';
+@import 'colors';
+
+$dropdown-font-size        : $font-size-small !default;
+$dropdown-font-size-large  : $font-size-base !default;
+$dropdown-line-height      : 1 !default;
+$dropdown-height           : 40px !default;
+$dropdown-height-small     : $dropdown-height * .75 !default; // 30px
+$dropdown-height-large     : $dropdown-height * 1.25 !default; // 50px
+$dropdown-background-color : $gray-lighter !default;
+$dropdown-text-color       : $gray-dark !default;
+$dropdown-border-color     : transparent !default;
+$dropdown-border-width     : 2px !default;
+$dropdown-border-radius    : 4px !default;
+
+$dropdown-menu-font-size          : $dropdown-font-size  !default;
+$dropdown-menu-font-size-large    : $dropdown-font-size-large !default;
+$dropdown-menu-line-height        : $dropdown-line-height  !default;
+$dropdown-menu-item-height        : $dropdown-height !default;
+$dropdown-menu-item-height-large  : $dropdown-height-large !default;
+$dropdown-menu-text-color         : $black !default;
+$dropdown-menu-background-color   : rgba($white, 0.95) !default;
+$dropdown-menu-border-color       : $gray-light !default;
+$dropdown-menu-border-width       : $dropdown-border-width  !default;
+$dropdown-menu-border-radius      : $dropdown-border-radius !default;
+
+@function hoverColor($color) {
+	@if grayscale($color) == $color {
+		@return darken($color, 10%);
+	} @else {
+		@return saturate(darken($color, 10%), 8%);
+	}
+}
+
+@function verticalMargin($dropdown-height) {
+	$total-vertical-space: ceil($dropdown-height / $line-height-base-px) * $line-height-base-px;
+	@return ($total-vertical-space - $dropdown-height) / 2;
+}
+
+@function verticalPadding($dropdown-height, $dropdown-font-size) {
+	$text-height: $dropdown-font-size * $dropdown-line-height;
+	@return (($dropdown-height - $text-height) / 2) - $dropdown-border-width;
+}
+
+@mixin _dropdown-vertical-measurements($dropdown-height, $dropdown-font-size) {
+	// Proxima needs a little nudge to look more vertically centered
+	padding-top: pxToRem(verticalPadding($dropdown-height, $dropdown-font-size) + 1px);
+	padding-bottom: pxToRem(verticalPadding($dropdown-height, $dropdown-font-size) - 1px);
+	margin-top: pxToRem(verticalMargin($dropdown-height));
+	margin-bottom: pxToRem(verticalMargin($dropdown-height));
+}
+
+%dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+%dropdown-button {
+	@include font-weight-semibold;
+	position: relative;
+	display: inline-block;
+	margin-right: 0;
+	margin-left: 0;
+	line-height: 1;
+	text-align: left;
+	text-shadow: none;
+	vertical-align: middle;
+	border-width: pxToRem($dropdown-border-width);
+	border-style: solid;
+	border-radius: pxToRem($dropdown-border-radius);
+	outline: 0;
+	transition: background-color 150ms, border-color 150ms, color 75ms ease-out;
+	&:link,
+	&:hover,
+	&:active,
+	&:visited {
+		text-decoration: none;
+		cursor: pointer;
+	}
+	&:active {
+		transform: translateY(pxToRem(1px));
+	}
+}
+
+%dropdown-icon-text {
+	&::after {
+		position: absolute;
+		right: pxToRem($dropdown-height / 2);
+		display: inline-block;
+		transform: translateY(-.1em);
+	}
+}
+
+%dropdown-menu {
+	@include unstyled-list;
+	position: absolute;
+	top: $dropdown-height;
+	display: none;
+	min-width: 160px;
+	border-width: pxToRem($dropdown-menu-border-width);
+	border-style: solid;
+	border-radius: pxToRem($dropdown-menu-border-radius);
+	opacity: 0;
+	box-shadow: 0 0 20px rgba($gray-darkest, 0.5);
+	transition: opacity 150ms;
+	&.is-open {
+		display: block;
+		opacity: 1;
+		z-index: 5;
+	}
+	> li {
+		margin: 0 !important;
+	}
+	> li a {
+		display: block;
+		width: 100%;
+		margin-right: 0;
+		margin-left: 0;
+		line-height: 1;
+		text-align: left;
+		text-shadow: none;
+		vertical-align: middle;
+		outline: 0;
+		transition: background-color 150ms, color 75ms ease-out;
+		&:link,
+		&:hover,
+		&:active,
+		&:visited {
+			text-decoration: none;
+			cursor: pointer;
+		}
+		&::before {
+			position: absolute;
+			left: 1rem;
+		}
+	}
+}
+
+/**
+  @name dropdown
+  @description Creates a basic dropdown
+  @mixin
+
+  @param $dropdown-height - The total desired height of the dropdown, measured in pixels. The default value is 40px; a new default value for $dropdown-height can be set in the SCSS file that imports _dropdowns.scss
+  @param $dropdown-font-size - The font size for the text in the dropdown, measured in pixels. The default value is $font-size-tiny; a new default value for $font-size-tiny can be set in the SCSS file that imports _dropdowns.scss.
+  @param $dropdown-text-color - The color for the text in the dropdown. The default value is $white; a new default value for $dropdown-text-color can be set in the SCSS file that imports _dropdowns.scss.
+  @param $dropdown-background-color - The background color for the dropdown. The default value is $green; a new default value for $dropdown-background-color can be set in the SCSS file that imports _dropdowns.scss.
+
+  @example
+    .dropdown._christmas {
+		@include dropdown-button($dropdown-font-size-large, $dropdown-height-large, red, green);
+    }
+*/
+@mixin dropdown(
+	$dropdown-height: $dropdown-height,
+	$dropdown-font-size: $dropdown-font-size,
+	$dropdown-text-color: $dropdown-text-color,
+	$dropdown-background-color: $dropdown-background-color,
+	$dropdown-menu-item-height: $dropdown-menu-item-height,
+	$dropdown-menu-text-color: $dropdown-menu-text-color,
+	$dropdown-menu-background-color: $dropdown-menu-background-color,
+	$dropdown-menu-border-color: $dropdown-menu-border-color
+) {
+	@extend %dropdown;
+	&-button {
+		@include dropdown-button($dropdown-height, $dropdown-font-size, $dropdown-text-color, $dropdown-background-color, $dropdown-border-color);
+	}
+	&-menu {
+		@include dropdown-menu($dropdown-menu-item-height, $dropdown-menu-font-size, $dropdown-menu-text-color, $dropdown-menu-background-color, $dropdown-menu-border-color);
+	}
+}
+
+/**
+  @name dropdown-button
+  @description Creates a basic dropdown-button
+  @mixin
+
+  @param $dropdown-height - The total desired height of the dropdown, measured in pixels. The default value is 40px; a new default value for $dropdown-height can be set in the SCSS file that imports _dropdowns.scss
+  @param $dropdown-font-size - The font size for the text in the dropdown, measured in pixels. The default value is $font-size-tiny; a new default value for $font-size-tiny can be set in the SCSS file that imports _dropdowns.scss.
+  @param $dropdown-text-color - The color for the text in the dropdown. The default value is $white; a new default value for $dropdown-text-color can be set in the SCSS file that imports _dropdowns.scss.
+  @param $dropdown-background-color - The background color for the dropdown. The default value is $green; a new default value for $dropdown-background-color can be set in the SCSS file that imports _dropdowns.scss.
+
+  @example
+    .dropdown._christmas {
+		@include dropdown-button($dropdown-font-size-large, $dropdown-height-large, red, green);
+    }
+*/
+@mixin dropdown-button(
+	$dropdown-height: $dropdown-height,
+	$dropdown-font-size: $dropdown-font-size,
+	$dropdown-text-color: $dropdown-text-color,
+	$dropdown-background-color: $dropdown-background-color,
+	$dropdown-border-color: $dropdown-border-color
+) {
+	@extend %dropdown-button;
+	@include dropdown-size($dropdown-height, $dropdown-font-size);
+	@include dropdown-color($dropdown-text-color, $dropdown-background-color, $dropdown-border-color);
+}
+
+/**
+  @name dropdown-menu
+  @description Creates a basic dropdown-menu
+  @mixin
+
+  @param $dropdown-menu-item-height - The total desired height of the dropdown-menu, measured in pixels. The default value is 40px; a new default value for $dropdown-menu-height can be set in the SCSS file that imports _dropdown-menus.scss
+  @param $dropdown-menu-font-size - The font size for the text in the dropdown-menu, measured in pixels. The default value is $font-size-tiny; a new default value for $font-size-tiny can be set in the SCSS file that imports _dropdown-menus.scss.
+  @param $dropdown-menu-text-color - The color for the text in the dropdown-menu. The default value is $white; a new default value for $dropdown-menu-text-color can be set in the SCSS file that imports _dropdown-menus.scss.
+  @param $dropdown-menu-background-color - The background color for the dropdown-menu. The default value is $green; a new default value for $dropdown-menu-background-color can be set in the SCSS file that imports _dropdowns.scss.
+
+  @example
+    .dropdown._christmas {
+		@include dropdown($dropdown-font-size-large, $dropdown-height-large, red, green);
+    }
+*/
+@mixin dropdown-menu(
+	$dropdown-menu-item-height: $dropdown-menu-item-height,
+	$dropdown-menu-font-size: $dropdown-menu-font-size,
+	$dropdown-menu-text-color: $dropdown-menu-text-color,
+	$dropdown-menu-background-color: $dropdown-menu-background-color,
+	$dropdown-menu-border-color: $dropdown-menu-border-color
+) {
+	@extend %dropdown-menu;
+	@include dropdown-menu-size($dropdown-menu-item-height, $dropdown-menu-font-size);
+	@include dropdown-menu-color($dropdown-menu-text-color, $dropdown-menu-background-color, $dropdown-menu-border-color);
+}
+
+/**
+  @name dropdown-size
+  @description Sizes a dropdown
+  @mixin
+
+  @param $dropdown-height - The total desired height of the dropdown, measured in pixels. The default value is 40px; a new default value for $dropdown-height can be set in the SCSS file that imports _dropdowns.scss
+  @param $dropdown-font-size - The font size for the text in the dropdown, measured in pixels. The default value is $font-size-tiny; a new default value for $font-size-tiny can be set in the SCSS file that imports _dropdowns.scss.
+
+  @example
+    .dropdown._small {
+		@include dropdown-size($dropdown-height-small);
+    }
+    .dropdown._large {
+		@include dropdown-size($dropdown-height-large, $dropdown-font-size-large);
+	}
+*/
+@mixin dropdown-size($dropdown-height: $dropdown-height, $dropdown-font-size: $dropdown-font-size) {
+	@include _dropdown-vertical-measurements($dropdown-height, $dropdown-font-size);
+	min-width: pxToRem($dropdown-height * 3);
+	padding-right: pxToRem($dropdown-height);
+	padding-left: pxToRem($dropdown-height / 2);
+	font-size: pxToRem($dropdown-font-size);
+}
+
+/**
+  @name dropdown-menu-size
+  @description Sizes a dropdown-menu
+  @mixin
+
+  @param $dropdown-menu-height - The total desired height of the dropdown-menu, measured in pixels. The default value is 40px; a new default value for $dropdown-menu-height can be set in the SCSS file that imports _dropdown-menus.scss
+  @param $dropdown-menu-font-size - The font size for the text in the dropdown-menu, measured in pixels. The default value is $font-size-tiny; a new default value for $font-size-tiny can be set in the SCSS file that imports _dropdown-menus.scss.
+
+  @example
+    .dropdown-menu._small {
+		@include dropdown-menu-size($dropdown-menu-item-height-small);
+    }
+    .dropdown-menu._large {
+		@include dropdown-menu-size($dropdown-menu-item-height-large, $dropdown-menu-font-size-large);
+	}
+*/
+@mixin dropdown-menu-size($dropdown-menu-item-height: $dropdown-menu-item-height, $dropdown-menu-font-size: $dropdown-menu-font-size) {
+	padding: 0 !important;
+	font-size: pxToRem($dropdown-menu-font-size);
+	> li a {
+		@include _dropdown-vertical-measurements($dropdown-menu-item-height, $dropdown-menu-font-size);
+		padding-right: pxToRem($dropdown-menu-item-height / 2);
+		padding-left: pxToRem($dropdown-menu-item-height);
+	}
+}
+
+/**
+  @name dropdown-color
+  @description Sets the colors for a dropdown
+  @mixin
+
+  @param $dropdown-text-color - The color for the text in the dropdown. The default value is $white; a new default value for $dropdown-text-color can be set in the SCSS file that imports _dropdowns.scss.
+  @param $dropdown-background-color - The background color for the dropdown. The default value is $green; a new default value for $dropdown-background-color can be set in the SCSS file that imports _dropdowns.scss.
+  @param $dropdown-border-color - The border color for the dropdown. The default value is transparent.
+  @param $dropdown-text-color-hover - The hover color for the dropdown text. The default value is the value of the $dropdown-text-color parameter
+  @param $dropdown-background-color-hover - The hover color for the dropdown background. The default value is calculated based on the value of $dropdown-background-color.
+
+  @example
+    .dropdown._halloween {
+		@include dropdown-color(black, orange, red, red, darkred, black);
+	}
+*/
+@mixin dropdown-color(
+	$dropdown-text-color: $dropdown-text-color,
+	$dropdown-background-color: $dropdown-background-color,
+	$dropdown-border-color: transparent,
+	$dropdown-text-color-hover: $dropdown-text-color,
+	$dropdown-background-color-hover: hoverColor($dropdown-background-color),
+	$dropdown-border-color-hover: $dropdown-border-color
+) {
+	color: $dropdown-text-color;
+	background-color: $dropdown-background-color;
+	border-color: $dropdown-border-color;
+
+	&:hover {
+		background-color: $dropdown-background-color-hover;
+		@if $dropdown-text-color-hover != $dropdown-text-color {
+			color: $dropdown-text-color-hover;
+		}
+	}
+	@if $dropdown-border-color == transparent {
+		&:focus {
+			border-color: $dropdown-background-color-hover;
+		}
+	} @else {
+		&:focus {
+			border-color: hoverColor($dropdown-border-color);
+		}
+		&:focus:hover {
+			border-color: $dropdown-border-color;
+		}
+	}
+}
+
+/**
+  @name dropdown-menu-color
+  @description Sets the colors for a dropdown-menu
+  @mixin
+
+  @param $dropdown-menu-text-color - The color for the text in the dropdown-menu. The default value is $white; a new default value for $dropdown-menu-text-color can be set in the SCSS file that imports _dropdown-menus.scss.
+  @param $dropdown-menu-background-color - The background color for the dropdown-menu. The default value is $green; a new default value for $dropdown-menu-background-color can be set in the SCSS file that imports _dropdown-menus.scss.
+  @param $dropdown-menu-border-color - The border color for the dropdown-menu. The default value is transparent.
+  @param $dropdown-menu-text-color-hover - The hover color for the dropdown-menu text. The default value is the value of the $dropdown-menu-text-color parameter
+  @param $dropdown-menu-background-color-hover - The hover color for the dropdown-menu background. The default value is calculated based on the value of $dropdown-menu-background-color.
+
+  @example
+    .dropdown-menu._halloween {
+		@include dropdown-menu-color(black, orange, red, red, darkred, black);
+	}
+*/
+@mixin dropdown-menu-color(
+	$dropdown-menu-text-color: $dropdown-menu-text-color,
+	$dropdown-menu-background-color: $dropdown-menu-background-color,
+	$dropdown-menu-border-color: transparent,
+	$dropdown-menu-text-color-hover: $white,
+	$dropdown-menu-background-color-hover: $blue,
+	$dropdown-menu-border-color-hover: $dropdown-menu-border-color
+) {
+	background-color: $dropdown-menu-background-color;
+	border-color: $dropdown-menu-border-color;
+
+	> li a {
+		color: $dropdown-menu-text-color;
+	}
+
+	> li a:hover {
+		background-color: $dropdown-menu-background-color-hover;
+		@if $dropdown-menu-text-color-hover != $dropdown-menu-text-color {
+			color: $dropdown-menu-text-color-hover;
+		}
+	}
+	@if $dropdown-menu-border-color == transparent {
+		> li a:focus {
+			border-color: $dropdown-menu-background-color-hover;
+		}
+	} @else {
+		> li a:focus {
+			border-color: hoverColor($dropdown-menu-border-color);
+		}
+		> li a:focus:hover {
+			border-color: $dropdown-menu-border-color;
+		}
+	}
+}
+
+/**
+  @name dropdown-bordered
+  @description Creates a simple bordered dropdown with a white background
+  @mixin
+
+  @param $color - Color used for the border, text, and hover background color
+
+  @example
+    .dropdown._chanukkah {
+		@include dropdown-size(blue);
+	}
+*/
+@mixin dropdown-bordered($color, $background: $white) {
+	@include dropdown-color($color, $background, $color, $white, $color);
+}
+
+/**
+  @name dropdown-down
+  @description Adds an arrow after the dropdown to indicate a closed collapsable menu
+  @mixin
+
+  @example
+    .dropdown._dropdown {
+		@include dropdown-down;
+	}
+*/
+@mixin dropdown-down() {
+	&::after {
+		@extend %dropdown-icon-text;
+		content: "\2039";
+		font-size: 1.5em;
+		transform: translateY(pxToRem(-4px)) rotate(-90deg);
+	}
+}

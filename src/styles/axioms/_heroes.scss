@@ -1,0 +1,85 @@
+
+$hero-alignment: "center" !default;
+$hero-min-height: 500px !default;
+$hero-min-height-mobile: 300px !default;
+$hero-padding: 4.5rem !default;
+$hero-background: $gray-darkest !default;
+$hero-color: $white !default;
+$hero-heading-width: 780px !default;
+$hero-lead-width: 600px !default;
+
+%hero {
+  display: flex;
+  flex-direction: column;
+  background: $hero-background;
+  background-size: cover !important; // Make sure background images don't override
+  *:not(a) {
+    color: $hero-color;
+  }
+  > .row {
+    width: 100%; // IE10
+  }
+  h1 {
+    max-width: $hero-heading-width;
+  }
+  .fineprint {
+    @include font-size-fine;
+    @include font-weight-semibold;
+    margin-top: 0;
+    color: $gray-lightest;
+  }
+  .lead {
+    @include font-size-lead;
+    max-width: $hero-lead-width;
+  }
+}
+
+@mixin hero-alignment($alignment) {
+  @if $alignment == 'center' {
+    justify-content: center;
+    * {
+      text-align: center;
+    }
+      h1 {
+        margin-right: auto; // IE9
+        margin-left: auto; // IE9
+      }
+  } @elseif $alignment == 'left' {
+    justify-content: space-around;
+    h1,
+    p {
+      text-align: left;
+    }
+  }
+}
+
+@mixin hero-size(
+  $height: $hero-min-height,
+  $padding-top: $hero-padding,
+  $padding-bottom: $hero-padding,
+  $height-mobile: $hero-min-height-mobile
+) {
+  min-height: $height;
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
+  .no-js,
+  .no-flexbox & {
+    height: $height; // Fixes weird resizing bug in IE9
+  }
+  @media screen and (max-width: $grid-breakpoint) {
+    // Smaller hero on mobile
+    min-height: $height-mobile;
+  }
+}
+
+@mixin hero(
+  $hero-min-height: $hero-min-height,
+  $hero-padding-top: $hero-padding,
+  $hero-padding-bottom: $hero-padding,
+  $hero-alignment: $hero-alignment,
+  $hero-min-height-mobile: $hero-min-height-mobile
+) {
+  @extend %hero;
+  @include hero-size($hero-min-height, $hero-padding-top, $hero-padding-bottom, $hero-min-height-mobile);
+  @include hero-alignment($hero-alignment);
+}

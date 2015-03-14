@@ -1,0 +1,42 @@
+$teal: #11a7aa;
+$teal-dark: #007788;
+$teal-darker: #0F6270;
+$teal-darkest: #0A3F49;
+
+$mustard: #f9b450;
+
+$blue: #1d67a7;
+$blue-dark: #164d7d;
+$blue-light: #4a85b9;
+
+$red: #BF324A;
+$red-dark: #d40025;
+
+$pink: #fc5ea6;
+$pink-dark: #e38;
+
+$white: #fff;
+$gray-lightest: #f7f7f7;
+$gray-lighter: #edefef;
+$gray-light: #c8cccc;
+$gray: #999;
+$gray-dark: #808080;
+$gray-darker: #4d4d4d;
+$gray-darkest: #253535;
+$black: #1a1a1a;
+
+$blue-twitter: #2caae1;
+$blue-linkedin: #008ac1;
+$blue-facebook: #3b5998;
+$red-googleplus: #dd4b39;
+$orange-analytics: #ffa800;
+
+$color-bg: $white;
+$color-text: $gray-darkest;
+
+$color-brand: $teal;
+$color-secondary: $mustard;
+
+@mixin color-headline() {
+	color: $black;
+}

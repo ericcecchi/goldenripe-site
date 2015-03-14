@@ -1,0 +1,190 @@
+$grid-width: 960px !default;
+$grid-columns: 12 !default;
+$grid-gutter: 20px !default;
+$grid-breakpoint: 599px !default;
+$grid-shift-breakpoint: 767px !default;
+
+@mixin _grid-breakpoint($grid-breakpoint: $grid-breakpoint) {
+	@media screen and (max-width: $grid-breakpoint) {
+		@content;
+	}
+}
+
+%grid-row {
+	@include _grid-breakpoint {
+		flex-wrap: wrap;
+	}
+	display: flex;
+	margin-right: auto;
+	margin-left: auto;
+	flex-direction: row;
+	justify-content: space-between;
+	.no-js &,
+	.no-flexbox & {
+		display: table;
+		width: 100%;
+		table-layout: fixed;
+		empty-cells: hide;
+	}
+}
+
+%grid-row_nested {
+	margin-right: $grid-gutter/-2;
+	margin-left: $grid-gutter/-2;
+	.no-js &,
+	.no-flexbox & {
+		width: calc(100% + #{$grid-gutter});
+	}
+}
+
+%grid-col {
+	padding-right: $grid-gutter/2;
+	padding-left: $grid-gutter/2;
+	.no-js &,
+	.no-flexbox & {
+		display: table-cell;
+		vertical-align: top;
+	}
+}
+
+%grid-col-float {
+	padding-right: $grid-gutter/2;
+	padding-left: $grid-gutter/2;
+	.no-js &,
+	.no-flexbox & {
+		display: block;
+		float: left;
+	}
+}
+
+/**
+	@name grid-row
+	@description Creates a wrapper for a series of columns
+	@mixin
+
+	@param $grid-width - The max-width for the grid row. Set to 100% if the row should be the width of its container. The default is 960px; a new default value for $grid-width can be set in the SCSS file that imports _grid.scss.
+
+	@example
+		.pattern {
+		@include grid-row(100%);
+		}
+*/
+@mixin grid-row($grid-width: $grid-width) {
+	@extend %grid-row;
+	max-width: $grid-width;
+}
+
+/**
+	@name grid-row-nested
+	@description Creates a wrapper for a series of columns within another column wrapper. Used if the nested row's columns should align with the parent row's columns. If you want additional padding around the nested row's columns, leave this mixin out.
+	@mixin
+
+	@example
+		.pattern {
+		@include grid-row(100%);
+		}
+*/
+@mixin grid-row-nested() {
+	@extend %grid-row_nested;
+}
+
+/**
+	@name grid-col
+	@description Creates a wrapper that spans a number of columns within a grid row (with table fallback)
+	@mixin
+
+	@param $span - The number of grid columns the element will span within the grid. For example, if the grid has 12 columns and $span is set to 6, the element will take up half of the grid row.
+	@param $grid-columns - The number of columns in the grid row. The default is 12; a new default value for $grid-columns can be set in the SCSS file that imports _grid.scss.
+
+	@example
+		.pattern-element {
+			// Span three columns of an eight-column grid
+		@include grid-col(3,8);
+		}
+*/
+@mixin grid-col($span: 1, $grid-columns: $grid-columns) {
+	@extend %grid-col;
+	@include _grid-breakpoint {
+		max-width: 100%;
+
+		flex-basis: 100%;
+	}
+	// This max-width bullshit is for IE10
+	max-width: percentage($span/$grid-columns);
+
+	flex-basis: percentage($span/$grid-columns);
+	.no-js &,
+	.no-flexbox & {
+		@include _grid-breakpoint {
+			display: block;
+			width: 100%;
+			&._offset {
+				display: none;
+			}
+		}
+		width: percentage($span/$grid-columns);
+	}
+}
+
+/**
+	@name grid-col-float
+	@description Creates a wrapper that spans a number of columns within a grid row (with float fallback)
+	@mixin
+
+	@param $span - The number of grid columns the element will span within the grid. For example, if the grid has 12 columns and $span is set to 6, the element will take up half of the grid row.
+	@param $grid-columns - The number of columns in the grid row. The default is 12; a new default value for $grid-columns can be set in the SCSS file that imports _grid.scss.
+
+	@example
+		.pattern-element {
+			// Span three columns of an eight-column grid
+		@include grid-col(3,8);
+		}
+*/
+@mixin grid-col-float($span: 1, $grid-columns: $grid-columns) {
+	@extend %grid-col-float;
+	@include _grid-breakpoint {
+		max-width: 100%;
+
+		flex-basis: 100%;
+	}
+	// This max-width bullshit is for IE10
+	max-width: percentage($span/$grid-columns);
+
+	flex-basis: percentage($span/$grid-columns);
+	.no-js &,
+	.no-flexbox & {
+		@include _grid-breakpoint {
+			display: block;
+			width: 100%;
+			&._offset {
+				display: none;
+			}
+		}
+		width: percentage($span/$grid-columns);
+	}
+}
+
+/**
+	@name grid-col-shift
+	@description Offset an element by a number of columns in a grid row
+	@mixin
+
+	@param $shift - The number of grid columns the element will shift to the right. For example, if the grid has 12 columns and $shift is set to 6, the element will move to the right half of the width of the row.
+	@param $grid-columns - The number of columns in the grid row. The default is 12; a new default value for $grid-columns can be set in the SCSS file that imports _grid.scss.
+
+	@warning grid-col-shift does not work when flexbox is not available (IE 9). Tread carefully.
+
+	@example
+		.pattern-element {
+			// Span three columns of an eight-column grid
+		@include grid-col(3,8);
+		// Move the element over two columns
+		@include grid-col-shift(2,8);
+		}
+*/
+@mixin grid-col_shift($shift: 1, $grid-columns: $grid-columns) {
+	@include _grid-breakpoint($grid-shift-breakpoint) {
+		margin-left: 0;
+	}
+	margin-left: percentage($shift/$grid-columns);
+}

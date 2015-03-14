@@ -1,0 +1,40 @@
+
+.row {
+	@include grid-row;
+
+	&._centeritems {
+		align-items: center;
+
+		.no-flexbox & .col {
+			vertical-align: middle;
+		}
+	}
+}
+
+.col {
+	@for $i from 1 through $grid-columns {
+		&._span-#{$i} {
+		  @include grid-col($i);
+		}
+	}
+
+	@for $i from 1 through $grid-columns - 1 {
+		&._shift-#{$i} {
+		  @include grid-col-shift($i);
+		}
+	}
+
+	> .row {
+		@include grid-row-nested;
+	}
+
+	&._nogutter {
+		padding: 0;
+	}
+}
+
+@media screen and (max-width: 599px) {
+	.col + .col {
+		margin-top: 1.5rem;
+	}
+}

@@ -1,0 +1,256 @@
+
+@import "functions";
+@import "buttons";
+@import "colors";
+@import "dropdowns";
+@import "grid";
+@import "headings";
+@import "heroes";
+@import "icons";
+@import "images";
+@import "tooltips";
+@import "typography";
+
+/**
+ * Base for all HTML elements
+ * Write an HTML element anywhere else that isn't scoped within a
+ * class and you're FIRED
+ * Much of this is sourced from [normalize.css](http://git.io/normalize)
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin-bottom: 0;
+}
+
+html {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  color: $color-text;
+  text-size-adjust: 100%;
+  cursor: default;
+}
+
+body {
+  @include font-size-base;
+  margin: 0;
+  line-height: $line-height-base;
+  background: $color-bg;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+[hidden],
+template {
+  display: none;
+}
+
+a {
+  color: $teal-dark;
+  text-decoration: none;
+  background-color: transparent;
+  &:active,
+  &:focus,
+  &:hover {
+    text-decoration: underline;
+    outline: 0;
+  }
+}
+
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+dfn {
+  font-style: italic;
+}
+
+
+
+mark {
+  color: $black;
+  background: $pink;
+}
+
+small {
+  font-size: 70%;
+}
+
+sub,
+sup {
+  position: relative;
+  font-size: 70%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -.5em;
+}
+
+sub {
+  bottom: -.25em;
+}
+
+img {
+  max-width: 100%;
+  border: 0;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+hr {
+  height: 0;
+  clear: both;
+  border: solid $gray-lighter;
+  border-width: 1px 0 0;
+}
+
+pre {
+  overflow: auto;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+// TODO
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+html input[type="button"],
+/* 1 */
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer; /* 3 */
+
+  -webkit-appearance: button; /* 2 */
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+input {
+  line-height: normal;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+fieldset {
+  padding: 1.5rem;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  border: 1px solid $gray-light;
+}
+
+legend {
+  padding: 0;
+  border: 0;
+}
+
+textarea {
+  overflow: auto;
+}
+
+optgroup {
+  font-weight: bold;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: 0;
+}

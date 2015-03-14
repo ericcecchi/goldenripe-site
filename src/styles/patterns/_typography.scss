@@ -1,0 +1,40 @@
+
+blockquote {
+	@include font-size-lead;
+	position: relative;
+	margin: 0;
+	&._small {
+		@include font-size-large;
+	}
+	&::before {
+		position: absolute;
+		left: -10px;
+		content: "\201C";
+	}
+	@media screen and (max-width: 599px) {
+		&::before {
+			position: static;
+		}
+	}
+	&::after {
+		content: "\201D";
+	}
+}
+.fineprint {
+  @include font-size-fine;
+}
+.lead {
+  @include font-size-large;
+    ._centered &,
+    &._centered { margin: 0 auto; }
+}
+.lead._large {
+  @include font-size-lead;
+}
+
+// Bump down the base font size on small screens
+@media screen and (max-width: 899px) {
+	html {
+		font-size: 14px;
+	}
+}

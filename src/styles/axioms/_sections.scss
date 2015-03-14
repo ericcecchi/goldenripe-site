@@ -1,0 +1,128 @@
+
+@import "colors";
+@import "typography";
+
+$section-padding: 6rem !default;
+// Decrease top padding so it's not so spacey on mobile
+$section-padding-top-mobile: 3rem !default;
+// Images are at the bottom on mobile, so remove the bottom padding.
+$section-padding-bottom-mobile: 0 !default;
+$section-background: $white !default;
+$section-color: $color-text !default;
+
+%section {
+  overflow: hidden;
+  background-size: cover !important; // Override in case an image is set
+  p + * {
+    margin-top: 1.5rem;
+  }
+  ul {
+    padding-left: 1rem;
+  }
+  ul + * {
+    margin-top: 1.5rem;
+  }
+  li {
+    @include font-size-small;
+  }
+  li + li {
+    margin-top: .75rem;
+  }
+}
+
+@mixin section-alignment($alignment) {
+  @if $alignment == 'center' {
+    > * {
+      text-align: center; // Center all the things always!
+    }
+    > .row {
+      justify-content: space-around;
+    }
+    .productimage {
+      margin-top: 3rem;
+    }
+  }
+}
+
+@mixin section-color($background: $section-background, $color: $section-color) {
+  background: $background;
+  li,
+  p {
+    color: $color;
+  }
+}
+
+@mixin section-padding($padding-top: $section-padding, $padding-bottom: $section-padding, $padding-top-mobile: $section-padding-top-mobile, $padding-bottom-mobile: $section-padding-bottom-mobile) {
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
+  @media screen and (max-width: 599px) {
+    padding-top: $padding-top-mobile;
+    padding-bottom: $padding-bottom-mobile;
+  }
+}
+
+@mixin section-style($style) {
+  @if $style == '5050image' {
+    // Full bleed images
+    ._fullbleed > .image {
+      display: block;
+    }
+    .no-flexbox & ._fullbleed {
+      padding-top: 75%; // IE9 hack to show positioned images
+    }
+    @media screen and (max-width: 599px) {
+      // Remove padding on sections with full bleed images that get stacked
+      // on mobile and add extra margin above
+      ._fullbleed {
+        max-height: 250px;
+        margin-top: 3rem;
+        overflow: hidden;
+      }
+    }
+    // Positioning for full bleed images
+    @media screen and (min-width: 600px) {
+      padding: 0;
+      // We can't do negative margins in IE9, so we have to move the section padding onto the surrouning columns
+      > .row > .col:not(._fullbleed) {
+        padding-top: 4.5rem;
+        padding-bottom: 4.5rem;
+        padding-left: 20px;
+      }
+      ._fullbleed {
+        position: relative;
+        min-height: 600px;
+        align-self: stretch;
+      }
+      ._fullbleed > .image {
+        position: absolute;
+        width: auto;
+        height: 100%;
+        max-width: none;
+        &._top {
+          top: 0;
+        }
+        &._right {
+          right: 0;
+        }
+        &._bottom {
+          bottom: 0;
+        }
+        &._left {
+          left: 0;
+        }
+      }
+    }
+    // Increase full bleed height when base font size goes up
+    @media screen and (min-width: 900px) {
+      ._fullbleed {
+        min-height: 700px;
+      }
+    }
+  }
+}
+
+@mixin section($background: $section-background, $color: $color-text, $padding-top: $section-padding, $padding-bottom: $section-padding, $padding-top-mobile: $section-padding-top-mobile, $padding-bottom-mobile: $section-padding-bottom-mobile) {
+  @extend %section;
+  @include section-padding($padding-top, $padding-bottom, $padding-top-mobile, $padding-bottom-mobile);
+  @include section-color($background, $color);
+}

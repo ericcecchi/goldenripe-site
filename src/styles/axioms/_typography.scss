@@ -1,0 +1,87 @@
+// Standard sizes
+$font-size-base: 16px !default;
+$font-size-large: 18px !default;
+$font-size-small: 14px !default;
+
+// Speciality sizes
+$font-size-head: 51px !default;
+$font-size-head-small: 38px !default;
+$font-size-subhead: 28px !default;
+$font-size-lead: 21px !default;
+$font-size-fine: 12px !default;
+
+$font-family-base: "Helvetica Neue", "Helvetica", "Arial", sans-serif !default;
+$font-family-headline: "Helvetica Neue", "Helvetica", "Arial", sans-serif !default;
+$line-height-base: 1.5 !default;
+$line-height-base-px: $font-size-base * $line-height-base !default;
+
+@mixin font-size-base() {
+	font-size: pxToRem($font-size-base);
+}
+@mixin font-size-large() {
+	font-size: pxToRem($font-size-large);
+}
+@mixin font-size-small() {
+	font-size: pxToRem($font-size-small);
+}
+@mixin font-size-head() {
+	font-size: pxToRem($font-size-head);
+	@media screen and (max-width: 599px) {
+		font-size: pxToRem($font-size-head-small);
+	}
+}
+@mixin font-size-head-small() {
+	font-size: pxToRem($font-size-head-small);
+}
+@mixin font-size-subhead() {
+	font-size: pxToRem($font-size-subhead);
+}
+@mixin font-size-lead() {
+	font-size: pxToRem($font-size-lead);
+}
+@mixin font-size-fine() {
+	font-size: pxToRem($font-size-fine);
+}
+
+@mixin font-weight-normal() {
+	font-weight: 400;
+}
+@mixin font-weight-semibold() {
+	font-weight: 600;
+}
+
+%hide-text {
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+@mixin hide-text() {
+	@extend %hide-text;
+}
+
+%spaced-out {
+	@include font-weight-semibold;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+}
+
+@mixin spaced-out() {
+	@extend %spaced-out;
+}
+
+@mixin inline-list() {
+  > * {
+    display: inline-block;
+  }
+
+  > * + * {
+    margin-left: 20px;
+  }
+}
+
+@mixin unstyled-list() {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}

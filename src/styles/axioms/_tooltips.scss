@@ -1,0 +1,58 @@
+@import "typography";
+@import "colors";
+@import "icons";
+
+%tooltip {
+	position: absolute;
+	z-index: 5;
+	padding: 20px;
+	color: $color-text;
+	background: $white;
+	border-radius: 3px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+	cursor: default;
+	user-select: none;
+	> *:last-child {
+		margin-bottom: 0 !important;
+	}
+	.title {
+		@include font-size-large;
+		margin-bottom: .25rem; // TODO: Remove when everything is Sassy
+	}
+	.description {
+		@include font-size-small;
+		margin-bottom: 0; // TODO: Remove when everything is Sassy
+	}
+	.link {
+		color: $teal-dark;
+	}
+}
+
+/**
+	@name tooltip
+	@description Styles for an absolutely positioned tooltip.
+	@mixin
+
+	@param $width - The size of the container for the tooltip. Since it's absolutely positioned, it must have a specified width.
+	@param $position -  The position of the tooltip relative to the thing that containing the tooltip (above or below).
+	@param $offset - The distance from the thing containing the tooltip.
+
+	@example
+		.tooltip {
+			@include tooltip(250px, below, 10px);
+		}
+*/
+
+@mixin tooltip($width: 15rem, $position: above, $offset: .75rem) {
+	@extend %tooltip;
+	width: $width;
+	@if $position == below {
+		@include triangle-dingus(top, left, 10px);
+		top: $offset;
+		left: 0;
+	} @else if $position == above {
+		@include triangle-dingus(bottom, left, 10px);
+		bottom: calc(100% + #{$offset});
+		left: 0;
+	}
+}
