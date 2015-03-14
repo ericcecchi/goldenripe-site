@@ -1,5 +1,5 @@
 
-# Sprout Social CSS Guidelines
+# CSS Guidelines
 
 *Something clever about how CSS gets out of control that Arlo will probably think up in the shower*
 
