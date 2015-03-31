@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Everything you need to build a basic site with React and React Router.",
   "main": "gulpfile.js",
+  "scripts": {
+    "start": "gulp build --env=prod && node server.js --env=prod --port=9001"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ericcecchi/react-site-boilerplate"
