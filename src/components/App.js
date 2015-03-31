@@ -35,7 +35,7 @@ var App = React.createClass({
   render: function() {
     return (
       <div>
-        <Navbar ref="navbar" {...this.state} />
+        {/*<Navbar ref="navbar" {...this.state} />*/}
 
         <RouteHandler {...this.props} {...this.state} />
 

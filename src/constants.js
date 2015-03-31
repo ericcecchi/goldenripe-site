@@ -4,8 +4,8 @@ module.exports = {
   imageCDN: '/images',
   meta: {
     default: {
-      title: "Example Title | Example Site",
-      description: "Example Site is an example. This is an example description."
+      title: "Connecting people to new life | GoldenRipe",
+      description: "GoldenRipe is dedicated to creating apps and websites as tools for understanding matters of faith, life, and history."
     }
   }
 };

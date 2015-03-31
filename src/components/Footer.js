@@ -12,7 +12,7 @@ var Footer = React.createClass({
       <footer className="globalfooter below-the-fold">
         <div className="row">
           <div className="col _span-12">
-            <p className="globalfooter-copyright">&copy; Copyright 2015 Celeste Merry. All&nbsp;Rights&nbsp;Reserved.</p>
+            <p className="globalfooter-copyright">&copy; Copyright 2015 GoldenRipe. All&nbsp;Rights&nbsp;Reserved.</p>
           </div>
         </div>
       </footer>

@@ -1,21 +1,21 @@
 {
-  "name": "react-site-boilerplate",
+  "name": "goldenripe-site",
   "version": "0.1.0",
-  "description": "Everything you need to build a basic site with React and React Router.",
+  "description": "The main marketing website for GoldenRipe.",
   "main": "gulpfile.js",
   "scripts": {
     "start": "gulp build --env=prod && node server.js --env=prod"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ericcecchi/react-site-boilerplate"
+    "url": "https://github.com/ericcecchi/goldenripe-site"
   },
   "author": "Eric Cecchi <eric.cecchi@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ericcecchi/react-site-boilerplate/issues"
+    "url": "https://github.com/ericcecchi/goldenripe-site/issues"
   },
-  "homepage": "http://example.com",
+  "homepage": "http://goldenripe.org",
   "engines": {
     "node": "0.10.x",
     "npm": "2.1.x"

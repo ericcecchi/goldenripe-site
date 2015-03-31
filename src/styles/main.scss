@@ -13,12 +13,14 @@ $font-size-subhead: 35px;
 $font-size-lead: 20px;
 $font-size-fine: 12px;
 
-$font-family-base: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-$font-family-headline: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$font-family-base: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$font-family-headline: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 $line-height-base: 1.5;
 $line-height-base-px: $font-size-base * $line-height-base;
 
-$grid-width: 1200px;
+$grid-width: 800px;
+
+$hero-min-height: 80vh !default;
 
 $section-padding-bottom-mobile: 3rem;
 

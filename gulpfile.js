@@ -1,7 +1,7 @@
 
 var argv = require('yargs')
       .default('env', 'dev')
-      .default('port', '1984')
+      .default('port', process.env.PORT || 1984)
       .argv,
     autoprefixer = require('gulp-autoprefixer'),
     del = require('del'),
