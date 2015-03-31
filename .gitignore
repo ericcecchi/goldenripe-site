@@ -2,5 +2,3 @@
 build
 /server.js
 node_modules
-/fabfile.py
-/requirements.txt
