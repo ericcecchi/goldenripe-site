@@ -4,6 +4,7 @@
     @include background-overlay(#ffcc00);
     background: url("/images/landscape-398505_1920.jpg") no-repeat center center;
     background-size: cover;
+    min-height: 100vh;
     h1 {
       margin-bottom: 0;
     }

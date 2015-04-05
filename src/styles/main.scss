@@ -2,16 +2,16 @@
 // Override axiom defaults here
 
 // Standard sizes
-$font-size-base: 16px;
-$font-size-large: 18px;
-$font-size-small: 14px;
+$font-size-base: 18px;
+$font-size-large: 21px;
+$font-size-small: 16px;
 
 // Speciality sizes
 $font-size-head: 51px;
 $font-size-head-small: 42px;
 $font-size-subhead: 35px;
-$font-size-lead: 20px;
-$font-size-fine: 12px;
+$font-size-lead: 22px;
+$font-size-fine: 14px;
 
 $font-family-base: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 $font-family-headline: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
@@ -20,7 +20,7 @@ $line-height-base-px: $font-size-base * $line-height-base;
 
 $grid-width: 800px;
 
-$hero-min-height: 100vh !default;
+$hero-min-height: 500px !default;
 
 $section-padding-bottom-mobile: 3rem;
 

@@ -5,13 +5,13 @@ var React = require('react'),
 
 var App = require('./components/App'),
     Home = require('./components/Home'),
-    ExamplePage = require('./components/ExamplePage'),
+    Together = require('./components/Together'),
     NotFound = require('./components/NotFound');
 
 module.exports = (
   <Route path="/" handler={App}>
     <DefaultRoute handler={Home} />
-    <Route path="/example" handler={ExamplePage} />
+    <Route path="/together" handler={Together} />
     <NotFoundRoute handler={NotFound} />
   </Route>
 );
