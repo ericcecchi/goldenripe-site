@@ -1,0 +1,36 @@
+
+.together {
+  .hero {
+    @include background-overlay(#000);
+    background: url("/images/together.jpg") no-repeat center center;
+    background-size: cover;
+  }
+  .bio {
+    h3 {
+      text-align: center;
+    }
+    p {
+      @include font-size-small;
+      text-align: justify;
+    }
+  }
+  .avatar {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 1px solid $gray;
+    &._dan {
+      background: url("/images/dan.jpg") no-repeat center center;
+      background-size: cover;
+    }
+    &._george {
+      background: url("/images/george.jpg") no-repeat center center;
+      background-size: cover;
+    }
+    &._eric {
+      background: url("/images/eric.jpg") no-repeat center center;
+      background-size: cover;
+    }
+  }
+}

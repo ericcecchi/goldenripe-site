@@ -25,8 +25,9 @@ blockquote {
 }
 .lead {
   @include font-size-large;
-    ._centered &,
-    &._centered { margin: 0 auto; }
+  max-width: 800px;
+  ._centered &,
+  &._centered { margin: 0 auto; }
 }
 .lead._large {
   @include font-size-lead;

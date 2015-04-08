@@ -25,9 +25,19 @@ var Home = React.createClass({
         <section className="section _centered">
           <div className="row">
             <div className="col _span-12">
-              <h2>Clearly communicating scriptures for life.</h2>
+              <h2>Touch the Heart. Free the Mind.</h2>
 
-              <p className="lead _large">GoldenRipe is dedicated to creating apps and websites as tools for understanding matters of faith, life, and history.</p>
+              <p className="lead">GoldenRipe builds mobile and web apps for people to exchange questions, answers, and comments about faith, life, and afterlife. Through this exchange, we are forming a multi-lingual, community-driven knowledge base and sparking conversations among believers and non-believers of all creeds.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="section _dark _centered">
+          <div className="row">
+            <div className="col _span-12">
+              <h2>A New Start.</h2>
+
+              <p className="lead"><strong>We’re launching into 2015 with a new mobile and web app—the HeartTouch project.</strong> Now in development, HeartTouch will bring believers and non-believers into dialogue through a multi-lingual, community-driven question and answer forum. The initial content will focus dialogue toward life and afterlife topics such as peace, worship, love, holiness, the source of sin, sacrifice, assurance, and more.</p>
             </div>
           </div>
         </section>
@@ -35,11 +45,42 @@ var Home = React.createClass({
         <section className="section _centered">
           <div className="row">
             <div className="col _span-12">
-              <h2>Connect with us.</h2>
+              <h2>Core Features</h2>
+              <p className="lead">The HeartTouch experience will be available as mobile and web apps on all major platforms and devices—smartphones, tablets, and personal computers.</p>
+            </div>
+          </div>
 
-              <p className="lead _large">We were founded in Chicago, but we’re globally connected. If you have the itch for technology and a heart for helping people begin a new life, come join us.</p>
+          <div className="row">
+            <div className="col _span-6">
+              <h3>Community-driven</h3>
+              <p>Users provide questions that engages answer and comment dialogues with each other.</p>
+            </div>
 
-              <p><Link to="/example" className="button _large">Learn More</Link></p>
+            <div className="col _span-6">
+              <h3>Deep discussions</h3>
+              <p>Key users provide questions and answers to influence community dialogue toward life and afterlife.</p>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col _span-6">
+              <h3>Any language</h3>
+              <p>Integrated translation support to and from any language for all questions and Accepted Answers.</p>
+            </div>
+
+            <div className="col _span-6">
+              <h3>New relationships</h3>
+              <p>Opportunities for seekers to connect with disciplers and keep the dialogue going.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="section _gray _centered">
+          <div className="row">
+            <div className="col _span-12">
+              <h2>We’re working on it.</h2>
+              <p className="lead _large">HeartTouch is not yet available, but it will be soon. Keep checking back, or click the button below to be notified when we launch.</p>
+              <p><button disabled className="button _large">Get notified</button></p>
             </div>
           </div>
         </section>

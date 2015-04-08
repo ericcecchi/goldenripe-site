@@ -17,7 +17,7 @@
 
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   {{#unless dev}}
-  <link rel="stylesheet" href="{{[main.css]}}" />
+  <link rel="stylesheet" href="/{{[main.css]}}" />
   {{/unless}}
 
   <meta property="og:title" content="{{title}}">
@@ -50,7 +50,9 @@
 
 <body>
   {{{content}}}
-  <script src="{{[bundle.js]}}"></script>
+  {{#if [bundle.js]}}
+  <script src="/{{[bundle.js]}}"></script>
+  {{/if}}
   {{#unless dev}}
   <script>
     // GA script

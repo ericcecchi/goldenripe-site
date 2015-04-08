@@ -2,33 +2,11 @@
 @import "colors";
 @import "typography";
 
-$section-padding: 6rem !default;
+$section-padding: 4.5rem;
 // Decrease top padding so it's not so spacey on mobile
-$section-padding-top-mobile: 3rem !default;
-// Images are at the bottom on mobile, so remove the bottom padding.
-$section-padding-bottom-mobile: 0 !default;
-$section-background: $white !default;
-$section-color: $color-text !default;
-
-%section {
-  overflow: hidden;
-  background-size: cover !important; // Override in case an image is set
-  p + * {
-    margin-top: 1.5rem;
-  }
-  ul {
-    padding-left: 1rem;
-  }
-  ul + * {
-    margin-top: 1.5rem;
-  }
-  li {
-    @include font-size-small;
-  }
-  li + li {
-    margin-top: .75rem;
-  }
-}
+$section-padding-mobile: 3rem;
+$section-background: $white;
+$section-color: $color-text;
 
 @mixin section-alignment($alignment) {
   @if $alignment == 'center' {
@@ -46,13 +24,15 @@ $section-color: $color-text !default;
 
 @mixin section-color($background: $section-background, $color: $section-color) {
   background: $background;
+  h2,
+  h3,
   li,
   p {
     color: $color;
   }
 }
 
-@mixin section-padding($padding-top: $section-padding, $padding-bottom: $section-padding, $padding-top-mobile: $section-padding-top-mobile, $padding-bottom-mobile: $section-padding-bottom-mobile) {
+@mixin section-padding($padding-top: $section-padding, $padding-bottom: $section-padding, $padding-top-mobile: $section-padding-mobile, $padding-bottom-mobile: $section-padding-mobile) {
   padding-top: $padding-top;
   padding-bottom: $padding-bottom;
   @media screen and (max-width: 599px) {
@@ -73,6 +53,7 @@ $section-color: $color-text !default;
     @media screen and (max-width: 599px) {
       // Remove padding on sections with full bleed images that get stacked
       // on mobile and add extra margin above
+      padding-bottom: 0;
       ._fullbleed {
         max-height: 250px;
         margin-top: 3rem;
@@ -121,8 +102,24 @@ $section-color: $color-text !default;
   }
 }
 
-@mixin section($background: $section-background, $color: $color-text, $padding-top: $section-padding, $padding-bottom: $section-padding, $padding-top-mobile: $section-padding-top-mobile, $padding-bottom-mobile: $section-padding-bottom-mobile) {
-  @extend %section;
+@mixin section($background: $section-background, $color: $color-text, $padding-top: $section-padding, $padding-bottom: $section-padding, $padding-top-mobile: $section-padding-mobile, $padding-bottom-mobile: $section-padding-mobile) {
   @include section-padding($padding-top, $padding-bottom, $padding-top-mobile, $padding-bottom-mobile);
   @include section-color($background, $color);
+  overflow: hidden;
+  background-size: cover !important; // Override in case an image is set
+  p + * {
+    margin-top: 1.5rem;
+  }
+  ul {
+    padding-left: 1rem;
+  }
+  ul + * {
+    margin-top: 1.5rem;
+  }
+  li {
+    @include font-size-small;
+  }
+  li + li {
+    margin-top: .75rem;
+  }
 }

@@ -17,11 +17,9 @@ var Navbar = React.createClass({
       <header className={navbarClasses}>
         <div className="row">
           <div className="col _span-12">
-            <Link to="/" className="mainnav-logo">Example site</Link>
-
-            <nav className="mainnav-nav">
+            <nav className="mainnav-nav _right">
               <ul className="mainnav-links">
-                <li><Link to="/example" className="mainnav-link">Link</Link></li>
+                <li><a href="//theway.goldenripe.org" className="button _inverse _pill _next">Go to The Way</a></li>
               </ul>
             </nav>
           </div>

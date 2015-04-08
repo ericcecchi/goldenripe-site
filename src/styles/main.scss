@@ -10,7 +10,7 @@ $font-size-small: 16px;
 $font-size-head: 51px;
 $font-size-head-small: 42px;
 $font-size-subhead: 35px;
-$font-size-lead: 22px;
+$font-size-lead: 24px;
 $font-size-fine: 14px;
 
 $font-family-base: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
@@ -18,11 +18,15 @@ $font-family-headline: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-seri
 $line-height-base: 1.5;
 $line-height-base-px: $font-size-base * $line-height-base;
 
-$grid-width: 800px;
+$grid-width: 960px;
 
 $hero-min-height: 500px !default;
 
 $section-padding-bottom-mobile: 3rem;
+
+svg {
+  max-width: 100%;
+}
 
 // Axioms
 @import "axioms/base";
@@ -53,5 +57,6 @@ $section-padding-bottom-mobile: 3rem;
 
 // Layouts
 @import "layouts/home";
+@import "layouts/together";
 @import "layouts/not-found";
 

@@ -25,9 +25,8 @@ $button-border-radius    : 4px !default;
 }
 
 @mixin _button-vertical-measurements($button-height, $button-font-size) {
-  // Proxima needs a little nudge to look more vertically centered
-  padding-top: pxToRem(verticalPadding($button-height, $button-font-size) + 1px);
-  padding-bottom: pxToRem(verticalPadding($button-height, $button-font-size) - 1px);
+  padding-top: pxToRem(verticalPadding($button-height, $button-font-size));
+  padding-bottom: pxToRem(verticalPadding($button-height, $button-font-size));
   margin-top: pxToRem(verticalMargin($button-height));
   margin-bottom: pxToRem(verticalMargin($button-height));
 }
@@ -63,7 +62,7 @@ $button-border-radius    : 4px !default;
   &::before,
   &::after {
     display: inline-block;
-    transform: translateY(-.1em);
+    // transform: translateY(-.1em);
   }
   &::before {
     margin-right: .5em;

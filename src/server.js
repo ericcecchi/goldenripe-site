@@ -12,6 +12,10 @@ var argv = require('yargs')
     path = require('path'),
     React = require('react'),
     Router = require('react-router'),
+    {Route, NotFoundRoute, DefaultRoute} = Router,
+    App = require('./components/App'),
+    Together = require('./components/Together'),
+    NotFound = require('./components/NotFound'),
     routes = require('./routes'),
     π = require('./constants'),
 
@@ -55,7 +59,38 @@ app.use(express.static('./' + BUILD_PATH, {
     res.set('Expires', 'Thu, 31 Dec 3030 00:00:00 GMT');
   }
 })); // Disable serving index.html
+
+// Redirect trailing slashes
+app.use(function(req, res, next) {
+   if(req.url.substr(-1) == '/' && req.url.length > 1)
+       res.redirect(301, req.url.slice(0, -1));
+   else
+       next();
+});
+
 app.get('/favicon.ico', function(req, res) { res.send('') });
+var serverRoutes = (
+  <Route handler={App}>
+    <Route path="/together" handler={Together} />
+    <NotFoundRoute handler={NotFound} />
+  </Route>
+);
+
+// Hidden route---not on client side
+app.get('/together', function(req, res) {
+  logger.info('Received request: %s', req.path);
+  Router.run(serverRoutes, req.path, function(Handler) {
+    var templateData = objectAssign({}, data, {
+      title: π.meta[req.path] ? π.meta[req.path].title : π.meta['default'].title,
+      description: π.meta[req.path] ? π.meta[req.path].description : π.meta['default'].description,
+      fontCDN: π.fontCDN,
+      "bundle.js": false, // Disables JS file
+      content: React.renderToStaticMarkup(<Handler path={req.path} />)
+    });
+    logger.info('Sending Response: %s', req.path);
+    res.send(template(templateData));
+  });
+});
 
 app.use(function(req, res) {
   logger.info('Received request: %s', req.path);

@@ -1,6 +1,27 @@
 
 .section {
   @include section;
+  &._dark {
+    @include section-color($gray-darkest, $gray-light);
+    h2,
+    h3,
+    .lead {
+      color: $white;
+    }
+  }
+  &._gray {
+    @include section-color($gray-lightest);
+  }
+  &._teal {
+    @include section-color($teal);
+    a {
+      color: $color-text;
+      text-decoration: underline;
+      &:hover {
+        color: $gray-lighter;
+      }
+    }
+  }
   &._centered {
     @include section-alignment('center');
   }
