@@ -80,7 +80,7 @@ var Home = React.createClass({
             <div className="col _span-12">
               <h2>We’re working on it.</h2>
               <p className="lead _large">HeartTouch is not yet available, but it will be soon. Keep checking back, or click the button below to be notified when we launch.</p>
-              <p><button disabled className="button _large">Get notified</button></p>
+              <p><a href="http://eepurl.com/bjQQYj" className="button _large">Get notified</a></p>
             </div>
           </div>
         </section>

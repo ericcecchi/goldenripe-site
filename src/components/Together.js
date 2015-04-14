@@ -39,7 +39,7 @@ var Together = React.createClass({
             <div className="bio col _span-4">
               <div className="avatar _george" title="George Miler"></div>
               <h3>George Miler</h3>
-              <p>As a software engineer for over twenty-five years, I have worked primarily on Unix servers and embedded systems, primarily in the area of telecommunications. I have been involved in apologetics and short term missions for over a decade. Some of my interests include community involvement, travel, backpacking, camping, bicycling, music, and volleyball.</p>
+              <p>As a software engineer for over twenty-five years, I have worked primarily on Unix servers and embedded systems, predominately in the area of telecommunications. I have been involved in apologetics and short term missions for over a decade. Some of my interests include community involvement, travel, backpacking, camping, bicycling, music, and volleyball.</p>
               <p>I’m <a target="_blank" href="https://www.linkedin.com/in/miler">on LinkedIn as well</a>.</p>
             </div>
 
