@@ -2,11 +2,11 @@
 var React = require('react/addons'),
     Router = require('react-router');
 
-var {Link} = Router,
+var Link = Router.Link,
     Icon = require('./Icon');
 
 var Navbar = React.createClass({
-  mixins: [ Router.State ],
+  mixins: [Router.State],
 
   render: function() {
     var cx = React.addons.classSet;
@@ -25,7 +25,7 @@ var Navbar = React.createClass({
           <div className="col _span-12">
             <nav className="mainnav-nav _left">
               <ul className="mainnav-links" style={navbarStyles.homeLink}>
-                <li><Link to="/" className="button _inverse _pill _previous">GoldenRipe Home</Link></li>
+                <li><a href="/" className="button _inverse _pill _previous">GoldenRipe Home</a></li>
               </ul>
             </nav>
 
