@@ -22,6 +22,9 @@
   &._link._active {
     @include button-color($white, $gray, transparent, $white, hoverColor($gray), transparent);
   }
+  &._previous {
+    @include button-previous;
+  }
   &._next {
     @include button-next;
   }

@@ -40,6 +40,9 @@
   }
   &-nav {
     display: inline-block;
+    &._left {
+      float: left;
+    }
     &._right {
       float: right;
     }
